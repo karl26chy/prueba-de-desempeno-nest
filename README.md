@@ -27,6 +27,7 @@ The system addresses operational challenges such as fleet availability tracking,
    * `HttpExceptionFilter`: Catches all HTTP and TypeORM query errors (such as PostgreSQL unique constraint violations `23505` and foreign key errors `23503`), converting them into semantic HTTP status codes (409 Conflict, 400 Bad Request) to prevent unhandled 500 server errors.
 5. **Atomic Transactions:** Atomic synchronization between maintenance status updates (`IN_PROGRESS`, `COMPLETED`, `CANCELLED`) and vehicle availability (`AVAILABLE`, `IN_MAINTENANCE`) utilizing TypeORM's `QueryRunner`.
 6. **External Partner Integration (API Key):** Dedicated endpoints protected with `ApiKeyGuard` validating the `x-api-key` header against configured environment variables.
+7. **OAuth 2.0 Authentication (Google - Extra 10 pts):** Support for third-party federated identity with Google OAuth 2.0 (`/api/auth/google`), seamlessly provisioning or finding the user and returning a valid FleetCore JWT.
 
 ---
 
@@ -63,6 +64,9 @@ DB_NAME=fleetcore
 JWT_SECRET=cambia-este-secreto
 JWT_EXPIRES_IN=1h
 API_KEYS=demo-key-partner-1,demo-key-partner-2
+GOOGLE_CLIENT_ID=your-google-client-id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+GOOGLE_CALLBACK_URL=http://localhost:3000/api/auth/google/callback
 ```
 
 ### 3. Run Database Seeder
@@ -79,12 +83,16 @@ The API will be available at: `http://localhost:3000`
 
 ---
 
-## 🐳 Docker Deployment (Optional Extra)
-Full Docker containerization is supported via multi-stage `Dockerfile` and `docker-compose.yml`:
-```bash
-# Build and spin up PostgreSQL and API containers
-docker compose up -d --build
-```
+## 🌟 Optional Extra Points Implemented (+15 pts)
+
+1. **Docker Deployment (5 points):** Multi-stage `Dockerfile` and `docker-compose.yml` for unified API and PostgreSQL container orchestration with data volume persistence and internal networking.
+   ```bash
+   docker compose up -d --build
+   ```
+
+2. **OAuth 2.0 with Google (10 points):** Third-party authentication via Google OAuth 2.0.
+   * `GET /api/auth/google`: Initiates authentication flow redirecting to Google.
+   * `GET /api/auth/google/callback`: Receives verified user identity, provisions the account, and issues a valid JWT token.
 
 ---
 
