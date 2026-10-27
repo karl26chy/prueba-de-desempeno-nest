@@ -4,8 +4,8 @@
 ---
 
 ### 📌 Developer Information
-* **Name:** Coder (Backend Developer)
-* **Clan:** Riwi Dev Clan
+* **Name:** Carlos Charris Yepes (Backend Developer)
+* **Clan:** Node/Nest AM
 * **Project:** FleetCore REST API - Vehicle Maintenance Lifecycle
 
 ---
