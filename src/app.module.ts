@@ -7,6 +7,7 @@ import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { RolesGuard } from './common/guards/roles.guard';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { VehiclesModule } from './modules/vehicles/vehicles.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AuthModule } from './modules/auth/auth.module';
     // Módulos funcionales
     UsersModule,
     AuthModule,
+    VehiclesModule,
   ],
   providers: [
     // Aplicación global del Guard JWT (todas las rutas son privadas por defecto salvo @Public)
