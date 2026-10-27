@@ -57,4 +57,42 @@ export class AuthService {
       },
     };
   }
+
+  // Integración e inicio de sesión con proveedor externo OAuth 2.0 (Google)
+  async loginOAuthUser(profile: { email: string; name: string }) {
+    if (!profile || !profile.email) {
+      throw new UnauthorizedException(
+        'No se recibió un correo electrónico válido desde Google',
+      );
+    }
+
+    let user = await this.usersService.findByEmail(profile.email);
+
+    // Si el usuario no existe, se aprovisiona automáticamente en la plataforma
+    if (!user) {
+      const randomPassword =
+        Math.random().toString(36).slice(-10) + 'OAuth123*';
+      user = await this.usersService.create({
+        name: profile.name || 'Google User',
+        email: profile.email,
+        password: randomPassword,
+      });
+    }
+
+    const payload = {
+      sub: user.id,
+      email: user.email,
+      role: user.role,
+    };
+
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
+    };
+  }
 }
