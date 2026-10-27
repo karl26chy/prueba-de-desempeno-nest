@@ -7,7 +7,7 @@ export class LoginDto {
   @IsNotEmpty({ message: 'El correo electrónico es obligatorio' })
   email: string;
 
-  @ApiProperty({ example: 'Admin1234*' })
+  @ApiProperty({ example: 'Password123*' })
   @IsString({ message: 'La contraseña debe ser una cadena de texto' })
   @IsNotEmpty({ message: 'La contraseña es obligatoria' })
   password: string;
