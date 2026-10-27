@@ -2,7 +2,7 @@
   "name": "fleetcore-api",
   "version": "1.0.0",
   "description": "API REST para gestión de mantenimiento de flota de vehículos - FleetCore",
-  "author": "Coder",
+  "author": "Carlos Charris Yepes",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
