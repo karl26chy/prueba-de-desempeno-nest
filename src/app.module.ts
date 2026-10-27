@@ -10,6 +10,8 @@ import { AuthModule } from './modules/auth/auth.module';
 import { VehiclesModule } from './modules/vehicles/vehicles.module';
 import { WorkshopsModule } from './modules/workshops/workshops.module';
 import { MechanicsModule } from './modules/mechanics/mechanics.module';
+import { MaintenancesModule } from './modules/maintenances/maintenances.module';
+import { ExternalModule } from './modules/external/external.module';
 
 @Module({
   imports: [
@@ -30,6 +32,8 @@ import { MechanicsModule } from './modules/mechanics/mechanics.module';
     VehiclesModule,
     WorkshopsModule,
     MechanicsModule,
+    MaintenancesModule,
+    ExternalModule,
   ],
   providers: [
     // Aplicación global del Guard JWT (todas las rutas son privadas por defecto salvo @Public)
