@@ -1,58 +1,58 @@
-# FleetCore - Sistema de Gestión de Mantenimiento de Flota de Vehículos
-## Prueba de Desempeño – Módulo 6.2 NestJS
+# FleetCore - Fleet Maintenance Management System
+## Performance Assessment – Module 6.2 NestJS
 
 ---
 
-### 📌 Información del Coder
-* **Nombre:** Coder (Desarrollador Backend)
+### 📌 Developer Information
+* **Name:** Coder (Backend Developer)
 * **Clan:** Riwi Dev Clan
-* **Proyecto:** API REST FleetCore - Ciclo de Vida de Mantenimientos
+* **Project:** FleetCore REST API - Vehicle Maintenance Lifecycle
 
 ---
 
-## 🚀 Descripción del Proyecto
-API REST construida con **NestJS**, **TypeScript**, **PostgreSQL** y **TypeORM** para administrar el ciclo de vida completo de los mantenimientos de la flota vehicular de FleetCore.
+## 🚀 Project Overview
+A robust RESTful API built with **NestJS**, **TypeScript**, **PostgreSQL**, and **TypeORM** designed to manage the end-to-end maintenance lifecycle of FleetCore's vehicle fleet.
 
-El sistema resuelve la trazabilidad de vehículos, asignación de mecánicos y talleres, control estricto de disponibilidad según estados, prevención de cruces de horarios y control transaccional atómico.
+The system addresses operational challenges such as fleet availability tracking, mechanic and workshop assignment, overlapping schedule prevention, business state transition constraints, and atomic database synchronization.
 
-### 🛡️ Buenas Prácticas y Decisiones de Arquitectura
-1. **Seguridad y Hashing:** Se utiliza `bcrypt` (10 rondas de sal) para el almacenamiento criptográfico seguro de contraseñas.
-2. **Control de Acceso Basado en Roles (RBAC):** Roles oficiales del sistema: `ADMIN` y `TECHNICIAN`.
-3. **Mínimo 3 Decoradores Personalizados:**
-   * `@Roles(...)`: Declara los roles autorizados para el endpoint.
-   * `@CurrentUser()`: Extrae el usuario autenticado de la petición.
-   * `@Public()`: Marca endpoints exentos de autenticación JWT.
-4. **Respuestas Uniformes y Manejo Centralizado de Errores:**
-   * `ResponseInterceptor`: Formatea todas las respuestas exitosas `{ success: true, statusCode, data, timestamp }`.
-   * `HttpExceptionFilter`: Captura excepciones y convierte violaciones de unicidad / integridad de PostgreSQL a códigos HTTP semánticos (409 Conflict, 400 Bad Request) evitando errores 500 no controlados.
-5. **Transacciones Atómicas:** Sincronización entre el cambio de estado de mantenimientos (`IN_PROGRESS`, `COMPLETED`, `CANCELLED`) y el estado del vehículo (`AVAILABLE`, `IN_MAINTENANCE`) implementada con `QueryRunner` de TypeORM.
-6. **Autenticación Externa (API Key):** Endpoint para consumo externo protegido mediante el encabezado `x-api-key` y `ApiKeyGuard`.
-
----
-
-## 🛠️ Requisitos Previos
-* **Node.js** (v20 o superior)
-* **npm** (v10 o superior)
-* **PostgreSQL** (v15 o superior) o **Docker & Docker Compose**
+### 🛡️ Architecture & Best Practices
+1. **Secure Password Hashing:** Powered by `bcrypt` (10 salt rounds) for cryptographic credential protection.
+2. **Role-Based Access Control (RBAC):** Official platform roles: `ADMIN` and `TECHNICIAN`.
+3. **Custom Decorators:**
+   * `@Roles(...)`: Restricts endpoint access to specified roles.
+   * `@CurrentUser()`: Extracts the authenticated user payload from the HTTP request context.
+   * `@Public()`: Marks endpoints as exempt from JWT authentication.
+4. **Standardized Responses & Centralized Exception Handling:**
+   * `ResponseInterceptor`: Uniform success response envelope: `{ success: true, statusCode, data, timestamp }`.
+   * `HttpExceptionFilter`: Catches all HTTP and TypeORM query errors (such as PostgreSQL unique constraint violations `23505` and foreign key errors `23503`), converting them into semantic HTTP status codes (409 Conflict, 400 Bad Request) to prevent unhandled 500 server errors.
+5. **Atomic Transactions:** Atomic synchronization between maintenance status updates (`IN_PROGRESS`, `COMPLETED`, `CANCELLED`) and vehicle availability (`AVAILABLE`, `IN_MAINTENANCE`) utilizing TypeORM's `QueryRunner`.
+6. **External Partner Integration (API Key):** Dedicated endpoints protected with `ApiKeyGuard` validating the `x-api-key` header against configured environment variables.
 
 ---
 
-## ⚙️ Paso a Paso para Levantar el Proyecto
+## 🛠️ Prerequisites
+* **Node.js** (v20 or higher)
+* **npm** (v10 or higher)
+* **PostgreSQL** (v15 or higher) or **Docker & Docker Compose**
 
-### 1. Clonar e Instalar Dependencias
+---
+
+## ⚙️ Setup and Installation Guide
+
+### 1. Clone Repository and Install Dependencies
 ```bash
-git clone <url-del-repositorio>
+git clone <repository-url>
 cd "prueba de nest"
 npm install
 ```
 
-### 2. Configurar Variables de Entorno
-Copia el archivo `.env.example` a `.env`:
+### 2. Configure Environment Variables
+Copy `.env.example` to create `.env`:
 ```bash
 cp .env.example .env
 ```
 
-Contenido de `.env.example`:
+Default `.env.example` values:
 ```env
 PORT=3000
 DB_HOST=localhost
@@ -65,73 +65,72 @@ JWT_EXPIRES_IN=1h
 API_KEYS=demo-key-partner-1,demo-key-partner-2
 ```
 
-### 3. Ejecutar el Seeder de Base de Datos
-Poblar la base de datos de manera automática e **idempotente** (ejecutarlo varias veces no duplica datos):
+### 3. Run Database Seeder
+Populate the database using the **idempotent** seed script (executing multiple times will never duplicate data):
 ```bash
 npm run seed
 ```
 
-### 4. Iniciar el Servidor en Desarrollo
+### 4. Start Development Server
 ```bash
 npm run start:dev
 ```
-La aplicación estará disponible en: `http://localhost:3000`
+The API will be available at: `http://localhost:3000`
 
 ---
 
-## 🐳 Despliegue con Docker (Opcional Extra)
-Se incluye configuración completa con `Dockerfile` multi-stage y `docker-compose.yml`:
+## 🐳 Docker Deployment (Optional Extra)
+Full Docker containerization is supported via multi-stage `Dockerfile` and `docker-compose.yml`:
 ```bash
-# Levantar contenedor de base de datos y API
+# Build and spin up PostgreSQL and API containers
 docker compose up -d --build
 ```
 
 ---
 
-## 📖 Documentación Interactiva (Swagger)
-Una vez levantada la API, accede a la documentación interactiva Swagger:
-👉 **URL de Swagger:** [http://localhost:3000/api/docs](http://localhost:3000/api/docs)
+## 📖 Interactive API Documentation (Swagger)
+Access the OpenAPI/Swagger interactive documentation at:
+👉 **Swagger UI:** [http://localhost:3000/api/docs](http://localhost:3000/api/docs)
 
-En Swagger puedes:
-* Usar el botón **Authorize** con el token JWT obtenido en el login: `Bearer <token>`.
-* Probar el header `x-api-key` (`demo-key-partner-1`) en las rutas externas.
+* Use the **Authorize** button with the JWT token obtained from `/api/auth/login`: `Bearer <token>`.
+* Test external integration endpoints with the `x-api-key` header (`demo-key-partner-1`).
 
 ---
 
-## 🔑 Credenciales de Prueba (Generadas por el Seeder)
+## 🔑 Test Credentials (Generated by Seeder)
 
-| Rol | Correo Electrónico | Contraseña | Descripción |
+| Role | Email | Password | Description |
 | :--- | :--- | :--- | :--- |
-| **ADMIN** | `admin@fleetcore.com` | `Password123*` | Administrador con acceso total |
-| **TECHNICIAN** | `carlos.tecnico@fleetcore.com` | `Password123*` | Técnico vinculado al mecánico Carlos Pérez |
-| **TECHNICIAN** | `laura.tecnico@fleetcore.com` | `Password123*` | Técnico vinculado al mecánico Laura Gómez |
+| **ADMIN** | `admin@fleetcore.com` | `Password123*` | Full system administrator access |
+| **TECHNICIAN** | `carlos.tecnico@fleetcore.com` | `Password123*` | Technician user linked to mechanic Carlos Pérez |
+| **TECHNICIAN** | `laura.tecnico@fleetcore.com` | `Password123*` | Technician user linked to mechanic Laura Gómez |
 
-### Claves API para Integraciones Externas:
+### API Keys for External Integrations:
 * `demo-key-partner-1`
 * `demo-key-partner-2`
 
 ---
 
-## 📋 Datos Iniciales del Seeder
+## 📋 Seeded Data Overview
 
-* **Mecánicos:**
-  * Carlos Pérez (Activo, vinculado a `carlos.tecnico@fleetcore.com`)
-  * Laura Gómez (Activo, vinculado a `laura.tecnico@fleetcore.com`)
-  * Pedro Ramírez (Inactivo)
-* **Talleres:**
-  * Taller Centro (Activo)
-  * Taller Norte (Inactivo)
-* **Vehículos:**
-  * `ABC123` (Chevrolet NPR, Estado: `AVAILABLE`)
-  * `XYZ789` (Renault Master, Estado: `AVAILABLE`)
-  * `MNT456` (Hino Dutro, Estado: `IN_MAINTENANCE` con mantenimiento `IN_PROGRESS`)
-  * `OLD000` (Ford Cargo, Estado: `INACTIVE`)
-* **Mantenimientos:**
-  * 1 `COMPLETED` en vehículo `ABC123` (Historial con costos y kilometraje final)
-  * 1 `IN_PROGRESS` en vehículo `MNT456`
+* **Mechanics:**
+  * Carlos Pérez (Active, linked to `carlos.tecnico@fleetcore.com`)
+  * Laura Gómez (Active, linked to `laura.tecnico@fleetcore.com`)
+  * Pedro Ramírez (Inactive, standalone)
+* **Workshops:**
+  * Taller Centro (Active)
+  * Taller Norte (Inactive)
+* **Vehicles:**
+  * `ABC123` (Chevrolet NPR, Status: `AVAILABLE`)
+  * `XYZ789` (Renault Master, Status: `AVAILABLE`)
+  * `MNT456` (Hino Dutro, Status: `IN_MAINTENANCE` with an `IN_PROGRESS` maintenance)
+  * `OLD000` (Ford Cargo, Status: `INACTIVE`, Soft-deleted)
+* **Maintenances:**
+  * 1 `COMPLETED` maintenance on vehicle `ABC123` (with full completion summary, final cost, and mileage history)
+  * 1 `IN_PROGRESS` maintenance on vehicle `MNT456`
 
 ---
 
-## 🧪 Pruebas y Evidencias
-* **Documentación y Pruebas en Swagger:** La validación de todos los endpoints y escenarios se realiza directamente en la interfaz interactiva de Swagger: [http://localhost:3000/api/docs](http://localhost:3000/api/docs).
-* **Dump de Base de Datos:** Se adjunta el archivo con la estructura y datos poblados: [`fleetcore_dump.sql`](./fleetcore_dump.sql).
+## 🧪 Evidence and Deliverables
+* **Swagger Documentation & Testing:** All endpoint testing and scenario verification are conducted via Swagger UI at [http://localhost:3000/api/docs](http://localhost:3000/api/docs).
+* **Database Dump:** Database schema and seeded records are available in [`fleetcore_dump.sql`](./fleetcore_dump.sql).
