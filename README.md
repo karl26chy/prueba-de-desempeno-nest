@@ -141,4 +141,12 @@ Access the OpenAPI/Swagger interactive documentation at:
 
 ## 🧪 Evidence and Deliverables
 * **Swagger Documentation & Testing:** All endpoint testing and scenario verification are conducted via Swagger UI at [http://localhost:3000/api/docs](http://localhost:3000/api/docs).
+* **Screenshots Evidence:** Full test scenario captures are cataloged in [`docs/capturas/`](./docs/capturas/):
+  1. `01-login-exitoso-admin.png`: Administrator login and JWT token generation.
+  2. `02-listado-vehiculos-protegido.png`: JWT-protected vehicle catalog with availability statuses.
+  3. `03-regla-negocio-conflicto-409.png`: Business rule enforcement (active maintenance conflict - 409).
+  4. `04-completar-mantenimiento-transaccion-200.png`: Mandatory closure fields & atomic vehicle transition to AVAILABLE.
+  5. `05-regla-no-regresar-completed.png`: State transition protection (completed maintenance cannot revert).
+  6. `06-integracion-externa-api-key.png`: External integration endpoint authorized via `x-api-key`.
+  7. `07-mantenimientos-asignados-tecnico.png`: Technician RBAC showing only assigned maintenances.
 * **Database Dump:** Database schema and seeded records are available in [`fleetcore_dump.sql`](./fleetcore_dump.sql).
