@@ -5,6 +5,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { getDatabaseConfig } from './config/database.config';
 import { JwtAuthGuard } from './common/guards/jwt-auth.guard';
 import { RolesGuard } from './common/guards/roles.guard';
+import { UsersModule } from './modules/users/users.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -19,6 +21,9 @@ import { RolesGuard } from './common/guards/roles.guard';
       inject: [ConfigService],
       useFactory: getDatabaseConfig,
     }),
+    // Módulos funcionales
+    UsersModule,
+    AuthModule,
   ],
   providers: [
     // Aplicación global del Guard JWT (todas las rutas son privadas por defecto salvo @Public)
