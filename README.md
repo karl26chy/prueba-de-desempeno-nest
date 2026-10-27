@@ -133,5 +133,5 @@ En Swagger puedes:
 ---
 
 ## 🧪 Pruebas y Evidencias
-* Se adjunta la colección de Postman: [`FleetCore_API.postman_collection.json`](./FleetCore_API.postman_collection.json).
-* Se adjunta el respaldo de la base de datos: [`fleetcore_dump.sql`](./fleetcore_dump.sql).
+* **Documentación y Pruebas en Swagger:** La validación de todos los endpoints y escenarios se realiza directamente en la interfaz interactiva de Swagger: [http://localhost:3000/api/docs](http://localhost:3000/api/docs).
+* **Dump de Base de Datos:** Se adjunta el archivo con la estructura y datos poblados: [`fleetcore_dump.sql`](./fleetcore_dump.sql).
