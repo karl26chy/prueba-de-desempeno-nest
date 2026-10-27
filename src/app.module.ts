@@ -8,6 +8,8 @@ import { RolesGuard } from './common/guards/roles.guard';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { VehiclesModule } from './modules/vehicles/vehicles.module';
+import { WorkshopsModule } from './modules/workshops/workshops.module';
+import { MechanicsModule } from './modules/mechanics/mechanics.module';
 
 @Module({
   imports: [
@@ -26,6 +28,8 @@ import { VehiclesModule } from './modules/vehicles/vehicles.module';
     UsersModule,
     AuthModule,
     VehiclesModule,
+    WorkshopsModule,
+    MechanicsModule,
   ],
   providers: [
     // Aplicación global del Guard JWT (todas las rutas son privadas por defecto salvo @Public)
