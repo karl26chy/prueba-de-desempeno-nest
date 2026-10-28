@@ -1,9 +1,11 @@
 # FleetCore - Fleet Maintenance Management System
+
 ## Performance Assessment – Module 6.2 NestJS
 
 ---
 
 ### 📌 Developer Information
+
 * **Name:** Carlos Charris Yepes (Backend Developer)
 * **Clan:** Node/Nest AM
 * **Project:** FleetCore REST API - Vehicle Maintenance Lifecycle
@@ -11,11 +13,13 @@
 ---
 
 ## 🚀 Project Overview
+
 A robust RESTful API built with **NestJS**, **TypeScript**, **PostgreSQL**, and **TypeORM** designed to manage the end-to-end maintenance lifecycle of FleetCore's vehicle fleet.
 
 The system addresses operational challenges such as fleet availability tracking, mechanic and workshop assignment, overlapping schedule prevention, business state transition constraints, and atomic database synchronization.
 
 ### 🛡️ Architecture & Best Practices
+
 1. **Secure Password Hashing:** Powered by `bcrypt` (10 salt rounds) for cryptographic credential protection.
 2. **Role-Based Access Control (RBAC):** Official platform roles: `ADMIN` and `TECHNICIAN`.
 3. **Custom Decorators:**
@@ -32,6 +36,7 @@ The system addresses operational challenges such as fleet availability tracking,
 ---
 
 ## 🛠️ Prerequisites
+
 * **Node.js** (v20 or higher)
 * **npm** (v10 or higher)
 * **PostgreSQL** (v15 or higher) or **Docker & Docker Compose**
@@ -41,6 +46,7 @@ The system addresses operational challenges such as fleet availability tracking,
 ## ⚙️ Setup and Installation Guide
 
 ### 1. Clone Repository and Install Dependencies
+
 ```bash
 git clone <repository-url>
 cd "prueba de nest"
@@ -48,12 +54,15 @@ npm install
 ```
 
 ### 2. Configure Environment Variables
+
 Copy `.env.example` to create `.env`:
+
 ```bash
 cp .env.example .env
 ```
 
 Default `.env.example` values:
+
 ```env
 PORT=3000
 DB_HOST=localhost
@@ -70,15 +79,19 @@ GOOGLE_CALLBACK_URL=http://localhost:3000/api/auth/google/callback
 ```
 
 ### 3. Run Database Seeder
+
 Populate the database using the **idempotent** seed script (executing multiple times will never duplicate data):
+
 ```bash
 npm run seed
 ```
 
 ### 4. Start Development Server
+
 ```bash
 npm run start:dev
 ```
+
 The API will be available at: `http://localhost:3000`
 
 ---
@@ -86,6 +99,7 @@ The API will be available at: `http://localhost:3000`
 ## 🌟 Optional Extra Points Implemented (+15 pts)
 
 1. **Docker Deployment (5 points):** Multi-stage `Dockerfile` and `docker-compose.yml` for unified API and PostgreSQL container orchestration with data volume persistence and internal networking.
+
    ```bash
    docker compose up -d --build
    ```
@@ -97,6 +111,7 @@ The API will be available at: `http://localhost:3000`
 ---
 
 ## 📖 Interactive API Documentation (Swagger)
+
 Access the OpenAPI/Swagger interactive documentation at:
 👉 **Swagger UI:** [http://localhost:3000/api/docs](http://localhost:3000/api/docs)
 
@@ -113,7 +128,8 @@ Access the OpenAPI/Swagger interactive documentation at:
 | **TECHNICIAN** | `carlos.tecnico@fleetcore.com` | `Password123*` | Technician user linked to mechanic Carlos Pérez |
 | **TECHNICIAN** | `laura.tecnico@fleetcore.com` | `Password123*` | Technician user linked to mechanic Laura Gómez |
 
-### API Keys for External Integrations:
+### API Keys for External Integrations
+
 * `demo-key-partner-1`
 * `demo-key-partner-2`
 
@@ -140,6 +156,7 @@ Access the OpenAPI/Swagger interactive documentation at:
 ---
 
 ## 🧪 Evidence and Deliverables
+
 * **Swagger Documentation & Testing:** All endpoint testing and scenario verification are conducted via Swagger UI at [http://localhost:3000/api/docs](http://localhost:3000/api/docs).
 * **Screenshots Evidence:** Full test scenario captures are cataloged in [`docs/capturas/`](./docs/capturas/):
   1. `01-login-exitoso-admin.png`: Administrator login and JWT token generation.
